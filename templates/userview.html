@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Left Column -->
+<div class="w3-col m3" style="width: 20%;">
+    <!-- Profile -->
+    <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+            <p class="w3-center"><img src="{% static './image/avatar3.png' %}" class="w3-circle"
+                    style="height:106px;width:106px" alt="Avatar"></p>
+            <h4 class="w3-center" style="text-transform: capitalize;">{{other_user.username}}</h4>
+            <hr style="margin-top: 5px; margin-bottom: 5px;">
+            <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+            <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+            <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+        </div>
+    </div>
+    <br>
+
+    <!-- Interests -->
+    <div class="w3-card w3-round w3-white w3-hide-small">
+        <div class="w3-container">
+            <p>Interests</p>
+            <p>
+                <span class="w3-tag w3-small w3-theme-d5">News</span>
+                <span class="w3-tag w3-small w3-theme-d4">W3Schools</span>
+                <span class="w3-tag w3-small w3-theme-d3">Labels</span>
+                <span class="w3-tag w3-small w3-theme-d2">Games</span>
+                <span class="w3-tag w3-small w3-theme-d1">Friends</span>
+                <span class="w3-tag w3-small w3-theme">Games</span>
+                <span class="w3-tag w3-small w3-theme-l1">Friends</span>
+                <span class="w3-tag w3-small w3-theme-l2">Food</span>
+                <span class="w3-tag w3-small w3-theme-l3">Design</span>
+                <span class="w3-tag w3-small w3-theme-l4">Art</span>
+                <span class="w3-tag w3-small w3-theme-l5">Photos</span>
+            </p>
+        </div>
+    </div>
+    <br>
+
+    <!-- End Left Column -->
+</div>
+
+<!-- Middle Column -->
+<div class="w3-col m7" style="width: 60%;">
+    {% for post in posts %}
+    {% if post.author == other_user %}
+    <div class="w3-container w3-card w3-white w3-round w3-margin "><br>
+        <span class="w3-right w3-opacity">{{ post.date }}</span>
+        <a href="{% url 'post_view' post.id %}">
+            {{ post.summury }}
+        </a>
+        <hr class="w3-clear" style="margin-top: 7px; margin-bottom: 10px;">
+        {% if post.image %}
+        <img src="{{ post.image.url }}" style="width:100%" class="w3-margin-bottom">
+        {% endif %}
+        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom">
+            Like</button>
+        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
+            Comment</button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <!-- End Middle Column -->
+</div>
+
+{% endblock %}

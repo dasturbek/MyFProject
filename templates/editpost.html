@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="w3-col m7" style="margin-left: 20%; margin-right: 20%;">
+    <div class="w3-row-padding">
+        <div class="w3-col m12">
+            <div class="w3-card w3-round w3-white">
+                <div class="w3-container w3-padding">
+                    {% if user == post.author %}
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="w3-button w3-theme"><i class="fa fa-pencil"></i>Done</button>
+                    </form>
+                    {% else %}
+                    <h1>404 not found</h1>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

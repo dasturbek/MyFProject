@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="w3-col m7">
+    <div class="w3-row-padding">
+        <div class="w3-col m12">
+            <div class="w3-card w3-round w3-white">
+                <div class="w3-container w3-padding">
+
+                    {% if user.is_authenticated %}
+                    <p>
+                        You are authenticated as {{ user.username }}, but are not authorized to
+                        access this page. Would you like to login to a different account?
+                    </p>
+                    {% else %}
+                    <h1>Log In</h1>
+                    <form action="" method="post">{% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="kirish">
+                    </form>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Middle Column -->
+<div class="w3-col m7" style="margin-left: 20%; margin-right: 20%;">
+    {% for post in posts %}
+    <div class="w3-container w3-card w3-white w3-round w3-margin "><br>
+        <img src="{% static './image/avatar3.png' %}" alt="Avatar" class="w3-left w3-circle w3-margin-right"
+            style="width:60px">
+        <span class="w3-right w3-opacity">{{ post.date }}</span>
+        {% if post.author == user %}
+        <a href="{% url 'profil' %}">
+            <h4 style="text-transform: capitalize;">{{ post.author }}</h4>
+        </a>
+        {% else %}
+        <a href="{% url 'user_view' post.author.id %}">
+            <h4 style="text-transform: capitalize;">{{ post.author }}</h4>
+        </a>
+        {% endif %}
+        <br>
+        <a href="{% url 'post_view' post.id %}">
+            {{ post.summury }}
+        </a>
+        <hr class="w3-clear" style="margin-top: 7px; margin-bottom: 10px;">
+        {% if post.image %}
+        <img src="{{ post.image.url }}" style="width:100%" class="w3-margin-bottom">
+        {% endif %}
+        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>
+            Like</button>
+        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom">
+            <a href="{% url 'post_view' post.id %}">Comment</a></button>
+    </div>
+    {% endfor %}
+    <!-- End Middle Column -->
+</div>
+
+{% endblock %}

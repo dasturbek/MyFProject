@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Middle Column -->
+<div class="w3-col m7" style="margin-left: 20%; margin-right: 20%;">
+    <div class="w3-container w3-card w3-white w3-round w3-margin" ><br>
+        <img src="{% static './image/avatar3.png' %}" alt="Avatar" class="w3-left w3-circle w3-margin-right"
+            style="width:60px">
+        <span class="w3-right w3-opacity">{{ post.date }}</span>
+        
+        {% if post.author == user %}
+        <a href="{% url 'profil' %}">
+            <h4 style="text-transform: capitalize;">{{ post.author }}</h4>
+        </a>
+        {% else %}
+        <a href="{% url 'user_view' post.author.id %}">
+            <h4 style="text-transform: capitalize;">{{ post.author }}</h4>
+        </a>
+        {% endif %}<br>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" style="width:100%" class="w3-margin-bottom">
+        {% endif %}
+
+        <h3>{{ post.summury }}</h3>
+        <hr class="w3-clear" style="margin-top: 10px; margin-bottom: 10px;">
+        <p>{{ post.text }}</p>
+
+        <h2>Comments</h2>
+        {% for comment in comments %}
+            <hr class="w3-clear" style="margin-top: 10px; margin-bottom: 10px;">
+            <h3>{{ comment.commenter.username}}</h3>
+            <p>{{ comment.text }}</p>
+        {% endfor %}
+        {% if user == post.author %}
+        <button type="button" class="w3-button w3-theme-d2 w3-right w3-margin-bottom" style="margin-left: 5px;">
+            <a href="{% url 'post_edit_view' post.pk %}">Edit</a></button>
+        <button type="button" class="w3-button w3-theme-d2 w3-right w3-margin-bottom" style="margin-left: 5px;">
+            <a href="{% url 'post_delete_view' post.pk %}">Delete</a></button>
+        {% endif %}
+    </div>
+    <!-- End Middle Column -->
+    <div class="w3-container w3-card w3-white w3-round w3-margin" >
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <input type="text" name="text" required="">
+                <label>comment</label>
+            </div>
+            <button type="submit" class="w3-button w3-theme"><i class="fa fa-pencil"></i>comment</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
