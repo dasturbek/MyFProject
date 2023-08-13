@@ -7,10 +7,9 @@
     <br>
   </h1>    
   
-  <h1>
+  <h3>
     <b>Django Website with API</b>
-    <br>
-  </h1>  
+  </h3>  
 </div>
 
 ---
